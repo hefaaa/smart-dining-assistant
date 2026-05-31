@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import WebSocket from "ws";
-import { prisma } from "@/lib/prisma";
 
 export async function POST(
   req: NextRequest
@@ -9,60 +7,34 @@ export async function POST(
   const body =
     await req.json();
 
-  const order =
-    await prisma.order.create({
+  const order = {
 
-      data: {
+    id:
+      "ORD-" +
+      Date.now(),
 
-        tableId:
-          body.tableId,
+    tableId:
+      body.tableId,
 
-        customerName:
-          body.customerName,
+    customerName:
+      body.customerName,
 
-        phone:
-          body.phone,
+    phone:
+      body.phone,
 
-        total:
-          body.total,
+    total:
+      body.total,
 
-        status:
-          "PENDING",
+    status:
+      "PENDING",
 
-      },
+    createdAt:
+      new Date(),
 
-    });
-
-  try {
-
-    const ws =
-      new WebSocket(
-        "ws://localhost:3001"
-      );
-
-    ws.on("open", () => {
-
-      ws.send(
-        JSON.stringify(order)
-      );
-
-      ws.close();
-
-    });
-
-  } catch (error) {
-
-    console.log(
-      "WebSocket Error:",
-      error
-    );
-
-  }
+  };
 
   return NextResponse.json(
     order
   );
 
 }
-
-  
