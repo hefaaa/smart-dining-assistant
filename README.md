@@ -3,8 +3,7 @@
 ## Live Demo
 <vercel link>
 
-## Loom Walkthrough
-<loom link>
+
 
 ## Setup
 
@@ -15,6 +14,27 @@
 5. npm run dev
 
 ## Architecture Diagram
+```mermaid
+flowchart TD
+
+A[User]
+
+A --> B[NLU Agent]
+
+B --> C[Memory Agent]
+
+C --> D[Recommendation Agent]
+
+D --> E[Upsell Agent]
+
+B --> F[Sentiment Agent]
+
+E --> G[UI Response]
+
+G --> H[Cart]
+
+H --> I[Checkout]
+```
 
 ## Agent Design
 
